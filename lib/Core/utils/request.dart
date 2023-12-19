@@ -2,13 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 
-// String baseUrl = '';
-// // Old One: http://10.0.2.2:5000
-
-// void updateBaseUrl(String newUrl) {
-//   baseUrl = newUrl;
-// }
-
 Future getData(String url) async {
   Response response = await get(Uri.parse(url));
   return response.body;
