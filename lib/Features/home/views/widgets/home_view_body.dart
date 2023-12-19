@@ -50,324 +50,325 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   @override
   Widget build(BuildContext context) {
     var appState = Provider.of<AppState>(context);
-    return SafeArea(
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: 8,
-              left: 16,
-              right: 16,
-              bottom: 16,
-            ),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 10,
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 8,
+            left: 16,
+            right: 16,
+            bottom: 16,
+          ),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Current IP:\n[ ${appState.baseUrl} ]',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
                 ),
-                Text(
-                  'Current IP:\n[ ${appState.baseUrl} ]',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                  ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Form(
+                key: _caesarForm,
+                child: AlgorithmItem(
+                  maxInputLength: 100,
+                  maxKeyLength: 100,
+                  onChanged1: (data) {
+                    caesarInput = data;
+                  },
+                  controller1: _caesarInputController,
+                  validator1: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value.';
+                    }
+                    return null;
+                  },
+                  onChanged2: (data) {
+                    caesarKey = data;
+                  },
+                  controller2: _caesarKeyController,
+                  validator2: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value.';
+                    }
+                    return null;
+                  },
+                  text: "Caesar Cipher",
+                  onPressed1: () async {
+                    if (_caesarForm.currentState!.validate()) {
+                      try {
+                        var data = await postData(
+                            '${appState.baseUrl}/caesarEncryption',
+                            {'pt': caesarInput!, 'k': caesarKey!});
+                        var decodedData = jsonDecode(data);
+                        // ignore: use_build_context_synchronously
+                        showSuccessDialog(
+                          context,
+                          'Encrypted Text:',
+                          decodedData['message'],
+                        );
+                      } catch (e) {
+                        // ignore: use_build_context_synchronously
+                        showErrorDialog(context, e.toString());
+                      }
+                    }
+                  },
+                  onPressed2: () async {
+                    if (_caesarForm.currentState!.validate()) {
+                      try {
+                        var data = await postData(
+                            '${appState.baseUrl}/caesarDecryption',
+                            {'ct': caesarInput!, 'k': caesarKey!});
+                        var decodedData = jsonDecode(data);
+                        // ignore: use_build_context_synchronously
+                        showSuccessDialog(
+                          context,
+                          'Decrypted Text:',
+                          decodedData['message'],
+                        );
+                      } catch (e) {
+                        // ignore: use_build_context_synchronously
+                        showErrorDialog(context, e.toString());
+                      }
+                    }
+                  },
                 ),
-                const SizedBox(
-                  height: 10,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Form(
+                key: _vigenereForm,
+                child: AlgorithmItem(
+                  maxInputLength: 100,
+                  maxKeyLength: 100,
+                  onChanged1: (data) {
+                    vigenereInput = data;
+                  },
+                  controller1: _vigenereInputController,
+                  validator1: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value.';
+                    }
+                    return null;
+                  },
+                  onChanged2: (data) {
+                    vigenereKey = data;
+                  },
+                  controller2: _vigenereKeyController,
+                  validator2: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value.';
+                    }
+                    return null;
+                  },
+                  text: "Vigenere Cipher",
+                  onPressed1: () async {
+                    if (_caesarForm.currentState!.validate()) {
+                      try {
+                        var data = await postData(
+                            '${appState.baseUrl}/vigenereEncryption',
+                            {'pt': vigenereInput!, 'k': vigenereKey!});
+                        var decodedData = jsonDecode(data);
+                        // ignore: use_build_context_synchronously
+                        showSuccessDialog(
+                          context,
+                          'Encrypted Text:',
+                          decodedData['message'],
+                        );
+                      } catch (e) {
+                        // ignore: use_build_context_synchronously
+                        showErrorDialog(context, e.toString());
+                      }
+                    }
+                  },
+                  onPressed2: () async {
+                    if (_caesarForm.currentState!.validate()) {
+                      try {
+                        var data = await postData(
+                            '${appState.baseUrl}/vigenereDecryption',
+                            {'ct': vigenereInput!, 'k': vigenereKey!});
+                        var decodedData = jsonDecode(data);
+                        // ignore: use_build_context_synchronously
+                        showSuccessDialog(
+                          context,
+                          'Decrypted Text:',
+                          decodedData['message'],
+                        );
+                      } catch (e) {
+                        // ignore: use_build_context_synchronously
+                        showErrorDialog(context, e.toString());
+                      }
+                    }
+                  },
                 ),
-                Form(
-                  key: _caesarForm,
-                  child: AlgorithmItem(
-                    maxInputLength: 100,
-                    maxKeyLength: 100,
-                    onChanged1: (data) {
-                      caesarInput = data;
-                    },
-                    controller1: _caesarInputController,
-                    validator1: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a value.';
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Form(
+                key: _autokeyForm,
+                child: AlgorithmItem(
+                  maxInputLength: 100,
+                  maxKeyLength: 1,
+                  onChanged1: (data) {
+                    autokeyInput = data;
+                  },
+                  controller1: _autokeyInputController,
+                  validator1: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value.';
+                    }
+                    return null;
+                  },
+                  onChanged2: (data) {
+                    autokeyKey = data;
+                  },
+                  controller2: _autokeyKeyController,
+                  validator2: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value.';
+                    }
+                    return null;
+                  },
+                  text: "Autokey Cipher",
+                  onPressed1: () async {
+                    if (_caesarForm.currentState!.validate()) {
+                      try {
+                        var data = await postData(
+                            '${appState.baseUrl}/autokeyEncryption',
+                            {'pt': autokeyInput!, 'k': autokeyKey!});
+                        var decodedData = jsonDecode(data);
+                        // ignore: use_build_context_synchronously
+                        showSuccessDialog(
+                          context,
+                          'Encrypted Text:',
+                          decodedData['message'],
+                        );
+                      } catch (e) {
+                        // ignore: use_build_context_synchronously
+                        showErrorDialog(context, e.toString());
                       }
-                      return null;
-                    },
-                    onChanged2: (data) {
-                      caesarKey = data;
-                    },
-                    controller2: _caesarKeyController,
-                    validator2: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a value.';
+                    }
+                  },
+                  onPressed2: () async {
+                    if (_caesarForm.currentState!.validate()) {
+                      try {
+                        var data = await postData(
+                            '${appState.baseUrl}/autokeyDecryption',
+                            {'ct': autokeyInput!, 'k': autokeyKey!});
+                        var decodedData = jsonDecode(data);
+                        // ignore: use_build_context_synchronously
+                        showSuccessDialog(
+                          context,
+                          'Decrypted Text:',
+                          decodedData['message'],
+                        );
+                      } catch (e) {
+                        // ignore: use_build_context_synchronously
+                        showErrorDialog(context, e.toString());
                       }
-                      return null;
-                    },
-                    text: "Caesar Cipher",
-                    onPressed1: () async {
-                      if (_caesarForm.currentState!.validate()) {
-                        try {
-                          var data = await postData(
-                              '${appState.baseUrl}/caesarEncryption',
-                              {'pt': caesarInput!, 'k': caesarKey!});
-                          var decodedData = jsonDecode(data);
-                          // ignore: use_build_context_synchronously
-                          showSuccessDialog(
-                            context,
-                            'Encrypted Text:',
-                            decodedData['message'],
-                          );
-                        } catch (e) {
-                          // ignore: use_build_context_synchronously
-                          showErrorDialog(context, e.toString());
-                        }
-                      }
-                    },
-                    onPressed2: () async {
-                      if (_caesarForm.currentState!.validate()) {
-                        try {
-                          var data = await postData(
-                              '${appState.baseUrl}/caesarDecryption',
-                              {'ct': caesarInput!, 'k': caesarKey!});
-                          var decodedData = jsonDecode(data);
-                          // ignore: use_build_context_synchronously
-                          showSuccessDialog(
-                            context,
-                            'Decrypted Text:',
-                            decodedData['message'],
-                          );
-                        } catch (e) {
-                          // ignore: use_build_context_synchronously
-                          showErrorDialog(context, e.toString());
-                        }
-                      }
-                    },
-                  ),
+                    }
+                  },
                 ),
-                const SizedBox(
-                  height: 16,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Form(
+                key: _affineForm,
+                child: AffineAlgoItem(
+                  onChanged1: (data) {
+                    affineInput = data;
+                  },
+                  controller1: _affineInputController,
+                  validator1: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value.';
+                    }
+                    return null;
+                  },
+                  onChanged2: (data) {
+                    affineKey1 = data;
+                  },
+                  controller2: _affineKey1Controller,
+                  validator2: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value.';
+                    }
+                    return null;
+                  },
+                  onChanged3: (data) {
+                    affineKey2 = data;
+                  },
+                  controller3: _affineKey2Controller,
+                  validator3: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value.';
+                    }
+                    return null;
+                  },
+                  text: "Affine Cipher",
+                  onPressed1: () async {
+                    if (_caesarForm.currentState!.validate()) {
+                      try {
+                        var data = await postData(
+                            '${appState.baseUrl}/affineEncryption', {
+                          'pt': affineInput!,
+                          'k1': affineKey1!,
+                          'k2': affineKey2!
+                        });
+                        var decodedData = jsonDecode(data);
+                        // ignore: use_build_context_synchronously
+                        showSuccessDialog(
+                          context,
+                          'Encrypted Text:',
+                          decodedData['message'],
+                        );
+                      } catch (e) {
+                        // ignore: use_build_context_synchronously
+                        showErrorDialog(context, e.toString());
+                      }
+                    }
+                  },
+                  onPressed2: () async {
+                    if (_caesarForm.currentState!.validate()) {
+                      try {
+                        var data = await postData(
+                            '${appState.baseUrl}/affineDecryption', {
+                          'ct': affineInput!,
+                          'k1': affineKey1!,
+                          'k2': affineKey2!
+                        });
+                        var decodedData = jsonDecode(data);
+                        // ignore: use_build_context_synchronously
+                        showSuccessDialog(
+                          context,
+                          'Decrypted Text:',
+                          decodedData['message'],
+                        );
+                      } catch (e) {
+                        // ignore: use_build_context_synchronously
+                        showErrorDialog(context, e.toString());
+                      }
+                    }
+                  },
                 ),
-                Form(
-                  key: _vigenereForm,
-                  child: AlgorithmItem(
-                    maxInputLength: 100,
-                    maxKeyLength: 100,
-                    onChanged1: (data) {
-                      vigenereInput = data;
-                    },
-                    controller1: _vigenereInputController,
-                    validator1: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a value.';
-                      }
-                      return null;
-                    },
-                    onChanged2: (data) {
-                      vigenereKey = data;
-                    },
-                    controller2: _vigenereKeyController,
-                    validator2: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a value.';
-                      }
-                      return null;
-                    },
-                    text: "Vigenere Cipher",
-                    onPressed1: () async {
-                      if (_caesarForm.currentState!.validate()) {
-                        try {
-                          var data = await postData(
-                              '${appState.baseUrl}/vigenereEncryption',
-                              {'pt': vigenereInput!, 'k': vigenereKey!});
-                          var decodedData = jsonDecode(data);
-                          // ignore: use_build_context_synchronously
-                          showSuccessDialog(
-                            context,
-                            'Encrypted Text:',
-                            decodedData['message'],
-                          );
-                        } catch (e) {
-                          // ignore: use_build_context_synchronously
-                          showErrorDialog(context, e.toString());
-                        }
-                      }
-                    },
-                    onPressed2: () async {
-                      if (_caesarForm.currentState!.validate()) {
-                        try {
-                          var data = await postData(
-                              '${appState.baseUrl}/vigenereDecryption',
-                              {'ct': vigenereInput!, 'k': vigenereKey!});
-                          var decodedData = jsonDecode(data);
-                          // ignore: use_build_context_synchronously
-                          showSuccessDialog(
-                            context,
-                            'Decrypted Text:',
-                            decodedData['message'],
-                          );
-                        } catch (e) {
-                          // ignore: use_build_context_synchronously
-                          showErrorDialog(context, e.toString());
-                        }
-                      }
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Form(
-                  key: _autokeyForm,
-                  child: AlgorithmItem(
-                    maxInputLength: 100,
-                    maxKeyLength: 1,
-                    onChanged1: (data) {
-                      autokeyInput = data;
-                    },
-                    controller1: _autokeyInputController,
-                    validator1: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a value.';
-                      }
-                      return null;
-                    },
-                    onChanged2: (data) {
-                      autokeyKey = data;
-                    },
-                    controller2: _autokeyKeyController,
-                    validator2: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a value.';
-                      }
-                      return null;
-                    },
-                    text: "Autokey Cipher",
-                    onPressed1: () async {
-                      if (_caesarForm.currentState!.validate()) {
-                        try {
-                          var data = await postData(
-                              '${appState.baseUrl}/autokeyEncryption',
-                              {'pt': autokeyInput!, 'k': autokeyKey!});
-                          var decodedData = jsonDecode(data);
-                          // ignore: use_build_context_synchronously
-                          showSuccessDialog(
-                            context,
-                            'Encrypted Text:',
-                            decodedData['message'],
-                          );
-                        } catch (e) {
-                          // ignore: use_build_context_synchronously
-                          showErrorDialog(context, e.toString());
-                        }
-                      }
-                    },
-                    onPressed2: () async {
-                      if (_caesarForm.currentState!.validate()) {
-                        try {
-                          var data = await postData(
-                              '${appState.baseUrl}/autokeyDecryption',
-                              {'ct': autokeyInput!, 'k': autokeyKey!});
-                          var decodedData = jsonDecode(data);
-                          // ignore: use_build_context_synchronously
-                          showSuccessDialog(
-                            context,
-                            'Decrypted Text:',
-                            decodedData['message'],
-                          );
-                        } catch (e) {
-                          // ignore: use_build_context_synchronously
-                          showErrorDialog(context, e.toString());
-                        }
-                      }
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Form(
-                  key: _affineForm,
-                  child: AffineAlgoItem(
-                    onChanged1: (data) {
-                      affineInput = data;
-                    },
-                    controller1: _affineInputController,
-                    validator1: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a value.';
-                      }
-                      return null;
-                    },
-                    onChanged2: (data) {
-                      affineKey1 = data;
-                    },
-                    controller2: _affineKey1Controller,
-                    validator2: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a value.';
-                      }
-                      return null;
-                    },
-                    onChanged3: (data) {
-                      affineKey2 = data;
-                    },
-                    controller3: _affineKey2Controller,
-                    validator3: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a value.';
-                      }
-                      return null;
-                    },
-                    text: "Affine Cipher",
-                    onPressed1: () async {
-                      if (_caesarForm.currentState!.validate()) {
-                        try {
-                          var data = await postData(
-                              '${appState.baseUrl}/affineEncryption', {
-                            'pt': affineInput!,
-                            'k1': affineKey1!,
-                            'k2': affineKey2!
-                          });
-                          var decodedData = jsonDecode(data);
-                          // ignore: use_build_context_synchronously
-                          showSuccessDialog(
-                            context,
-                            'Encrypted Text:',
-                            decodedData['message'],
-                          );
-                        } catch (e) {
-                          // ignore: use_build_context_synchronously
-                          showErrorDialog(context, e.toString());
-                        }
-                      }
-                    },
-                    onPressed2: () async {
-                      if (_caesarForm.currentState!.validate()) {
-                        try {
-                          var data = await postData(
-                              '${appState.baseUrl}/affineDecryption', {
-                            'ct': affineInput!,
-                            'k1': affineKey1!,
-                            'k2': affineKey2!
-                          });
-                          var decodedData = jsonDecode(data);
-                          // ignore: use_build_context_synchronously
-                          showSuccessDialog(
-                            context,
-                            'Decrypted Text:',
-                            decodedData['message'],
-                          );
-                        } catch (e) {
-                          // ignore: use_build_context_synchronously
-                          showErrorDialog(context, e.toString());
-                        }
-                      }
-                    },
-                  ),
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 56,
+              ),
+            ],
           ),
         ),
       ),
