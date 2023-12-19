@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ss_algorithms_app/Core/utils/api_service.dart';
 import 'package:ss_algorithms_app/Core/utils/app_state.dart';
 import 'package:ss_algorithms_app/Core/utils/request.dart';
 import 'package:ss_algorithms_app/Core/utils/show_error_dialog.dart';
@@ -49,6 +51,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    final dio = Dio();
+    final apiService = ApiService(dio);
+
     var appState = Provider.of<AppState>(context);
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -107,9 +112,12 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed1: () async {
                     if (_caesarForm.currentState!.validate()) {
                       try {
-                        var data = await postData(
-                            '${appState.baseUrl}/caesarEncryption',
-                            {'pt': caesarInput!, 'k': caesarKey!});
+                        var data = await apiService
+                            .encryptCaesar({'pt': caesarInput, 'k': caesarKey});
+
+                        // var data = await postData(
+                        //     '${appState.baseUrl}/caesarEncryption',
+                        //     {'pt': caesarInput!, 'k': caesarKey!});
                         var decodedData = jsonDecode(data);
                         // ignore: use_build_context_synchronously
                         showSuccessDialog(
@@ -126,9 +134,12 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed2: () async {
                     if (_caesarForm.currentState!.validate()) {
                       try {
-                        var data = await postData(
-                            '${appState.baseUrl}/caesarDecryption',
-                            {'ct': caesarInput!, 'k': caesarKey!});
+                        var data = await apiService
+                            .decryptCaesar({'ct': caesarInput, 'k': caesarKey});
+
+                        // var data = await postData(
+                        //     '${appState.baseUrl}/caesarDecryption',
+                        //     {'ct': caesarInput!, 'k': caesarKey!});
                         var decodedData = jsonDecode(data);
                         // ignore: use_build_context_synchronously
                         showSuccessDialog(
