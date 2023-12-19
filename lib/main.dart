@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_algorithms_app/Core/utils/app_state.dart';
-import 'package:ss_algorithms_app/Features/home/views/home_view.dart';
+import 'package:ss_algorithms_app/Features/splash/views/splash_screen.dart';
 import 'package:ss_algorithms_app/constants.dart';
 
 void main() {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: kScaffoldBackgroundColor,
         ),
-        home: const HomeView(),
+        home: const SplashScreen(),
       ),
     );
   }
