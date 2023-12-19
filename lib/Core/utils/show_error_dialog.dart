@@ -15,7 +15,9 @@ void showErrorDialog(
         title: const Text("Error"),
         content: Text(
           errorText,
-          style: Styles.sFProDisplayBlack,
+          style: Styles.sFProDisplayBlack.copyWith(
+            fontSize: 12,
+          ),
         ),
         actions: <Widget>[
           TextButton(

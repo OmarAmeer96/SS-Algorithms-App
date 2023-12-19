@@ -52,6 +52,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   @override
   Widget build(BuildContext context) {
     final dio = Dio();
+    dio.options.headers['Content-Type'] = 'application/json';
     final apiService = ApiService(dio);
 
     var appState = Provider.of<AppState>(context);

@@ -1,6 +1,5 @@
 import 'package:retrofit/http.dart';
 import 'package:dio/dio.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'api_service.g.dart';
 
