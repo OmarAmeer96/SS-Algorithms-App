@@ -174,7 +174,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   },
                   text: "Vigenere Cipher",
                   onPressed1: () async {
-                    if (_caesarForm.currentState!.validate()) {
+                    if (_vigenereForm.currentState!.validate()) {
                       try {
                         var data = await postData(
                             '${appState.baseUrl}/vigenereEncryption',
@@ -193,7 +193,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     }
                   },
                   onPressed2: () async {
-                    if (_caesarForm.currentState!.validate()) {
+                    if (_vigenereForm.currentState!.validate()) {
                       try {
                         var data = await postData(
                             '${appState.baseUrl}/vigenereDecryption',
@@ -243,7 +243,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   },
                   text: "Autokey Cipher",
                   onPressed1: () async {
-                    if (_caesarForm.currentState!.validate()) {
+                    if (_autokeyForm.currentState!.validate()) {
                       try {
                         var data = await postData(
                             '${appState.baseUrl}/autokeyEncryption',
@@ -262,7 +262,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     }
                   },
                   onPressed2: () async {
-                    if (_caesarForm.currentState!.validate()) {
+                    if (_autokeyForm.currentState!.validate()) {
                       try {
                         var data = await postData(
                             '${appState.baseUrl}/autokeyDecryption',
@@ -320,7 +320,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   },
                   text: "Affine Cipher",
                   onPressed1: () async {
-                    if (_caesarForm.currentState!.validate()) {
+                    if (_affineForm.currentState!.validate()) {
                       try {
                         var data = await postData(
                             '${appState.baseUrl}/affineEncryption', {
@@ -342,7 +342,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     }
                   },
                   onPressed2: () async {
-                    if (_caesarForm.currentState!.validate()) {
+                    if (_affineForm.currentState!.validate()) {
                       try {
                         var data = await postData(
                             '${appState.baseUrl}/affineDecryption', {
