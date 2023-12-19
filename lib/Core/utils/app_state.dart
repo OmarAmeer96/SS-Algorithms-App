@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppState extends ChangeNotifier {
-  String _baseUrl = 'http://10.0.2.2:5000';
+  String _baseUrl = 'https://mohammedsamy.pythonanywhere.com/';
   // One: http://10.0.2.2:5000
   // Two: https://mohammedsamy.pythonanywhere.com/
 
