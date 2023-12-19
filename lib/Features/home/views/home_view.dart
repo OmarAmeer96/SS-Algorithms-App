@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ss_algorithms_app/Core/utils/styles.dart';
 import 'package:ss_algorithms_app/Features/change_ip/views/widgets/change_ip_view_body.dart';
 import 'package:ss_algorithms_app/Features/home/views/widgets/home_view_body.dart';
+import 'package:ss_algorithms_app/Features/info/views/widgets/info_view_body.dart';
 import 'package:ss_algorithms_app/constants.dart';
 
 class HomeView extends StatefulWidget {
@@ -68,7 +69,7 @@ class _HomeViewState extends State<HomeView> {
       case 1:
         return const HomeViewBody();
       case 2:
-        return Container();
+        return const InfoViewBody();
       default:
         return Container();
     }

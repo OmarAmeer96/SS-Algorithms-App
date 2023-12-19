@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_algorithms_app/Core/utils/app_state.dart';
+import 'package:ss_algorithms_app/Core/utils/show_success_dialog2.dart';
+import 'package:ss_algorithms_app/Core/utils/styles.dart';
 import 'package:ss_algorithms_app/Core/widgets/custom_main_button.dart';
 import 'package:ss_algorithms_app/Core/widgets/custom_main_text_field.dart';
 import 'package:ss_algorithms_app/constants.dart';
@@ -32,11 +34,24 @@ class _ChangeIpViewBodyState extends State<ChangeIpViewBody> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Change IP',
+                    style: Styles.sFProDisplayBold.copyWith(),
+                  ),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
                 CustomMainTextField(
                   maxLength: 100,
-                  hintText: "Enter Ip",
+                  hintText: "Enter New IP",
                   borderColor: kButtonColor1,
                   focusedBorderColor: kButtonColor2,
                   enabledBorderColor: Colors.white,
@@ -60,8 +75,13 @@ class _ChangeIpViewBodyState extends State<ChangeIpViewBody> {
                   text: "Submit",
                   onPressed: () {
                     if (_ipForm.currentState!.validate()) {
-                      appState.updateBaseUrl(inputIp!);
-                      Navigator.of(context).pop();
+                      showLogoutConfirmationDialog(
+                        context,
+                        () {
+                          appState.updateBaseUrl(inputIp!);
+                          Navigator.of(context).pop();
+                        },
+                      );
                     }
                   },
                   color: kButtonColor2,
