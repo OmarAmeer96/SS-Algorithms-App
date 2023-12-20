@@ -50,7 +50,6 @@ class _ChangeIpViewBodyState extends State<ChangeIpViewBody> {
                   height: 40,
                 ),
                 CustomMainTextField(
-                  maxLength: 100,
                   hintText: "Enter New IP",
                   borderColor: kButtonColor1,
                   focusedBorderColor: kButtonColor2,

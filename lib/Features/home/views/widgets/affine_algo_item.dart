@@ -63,7 +63,6 @@ class AffineAlgoItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomMainTextField(
-                    maxLength: 100,
                     onChanged: onChanged1,
                     controller: controller1,
                     validator: validator1,
@@ -80,11 +79,10 @@ class AffineAlgoItem extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomMainTextField(
-                    maxLength: 100,
                     onChanged: onChanged2,
                     controller: controller2,
                     validator: validator2,
-                    hintText: 'Key 1',
+                    hintText: 'Key (a)',
                     borderColor: Colors.white,
                     focusedBorderColor: kButtonColor2,
                     enabledBorderColor: Colors.white,
@@ -97,11 +95,10 @@ class AffineAlgoItem extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomMainTextField(
-                    maxLength: 100,
                     onChanged: onChanged3,
                     controller: controller3,
                     validator: validator3,
-                    hintText: 'Key 2',
+                    hintText: 'Key (b)',
                     borderColor: Colors.white,
                     focusedBorderColor: kButtonColor2,
                     enabledBorderColor: Colors.white,

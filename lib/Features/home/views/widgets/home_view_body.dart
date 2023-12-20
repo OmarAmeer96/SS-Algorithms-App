@@ -6,6 +6,7 @@ import 'package:ss_algorithms_app/Core/utils/api_service.dart';
 import 'package:ss_algorithms_app/Core/utils/app_state.dart';
 import 'package:ss_algorithms_app/Core/utils/show_error_dialog.dart';
 import 'package:ss_algorithms_app/Core/utils/show_success_dialog.dart';
+import 'package:ss_algorithms_app/Core/utils/validatiom.dart';
 import 'package:ss_algorithms_app/Features/home/views/widgets/affine_algo_item.dart';
 import 'package:ss_algorithms_app/Features/home/views/widgets/autokey_item.dart';
 import 'package:ss_algorithms_app/Features/home/views/widgets/caesar_item.dart';
@@ -89,8 +90,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               Form(
                 key: _caesarForm,
                 child: CaesarItem(
-                  maxInputLength: 100,
-                  maxKeyLength: 100,
                   onChanged1: (data) {
                     caesarInput = data;
                   },
@@ -98,11 +97,15 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   validator1: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a value.';
+                    } else if (!validateLowerCase(value)) {
+                      return 'Only lowercase letters';
                     }
                     return null;
                   },
                   onChanged2: (data) {
-                    caesarKey = int.parse(data);
+                    if (data.toString().isNotEmpty) {
+                      caesarKey = int.parse(data);
+                    }
                   },
                   controller2: _caesarKeyController,
                   validator2: (value) {
@@ -158,8 +161,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               Form(
                 key: _vigenereForm,
                 child: VigenereItem(
-                  maxInputLength: 100,
-                  maxKeyLength: 100,
                   onChanged1: (data) {
                     vigenereInput = data;
                   },
@@ -167,6 +168,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   validator1: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a value.';
+                    } else if (!validateLowerCase(value)) {
+                      return 'Only lowercase letters';
                     }
                     return null;
                   },
@@ -177,6 +180,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   validator2: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a value.';
+                    } else if (!validateKeyLength(vigenereInput!, value)) {
+                      return 'Key <= input';
+                    } else if (!validateLowerCase(value)) {
+                      return 'Only lowercase letters allowed';
                     }
                     return null;
                   },
@@ -225,8 +232,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               Form(
                 key: _autokeyForm,
                 child: AutoKeyItem(
-                  maxInputLength: 100,
-                  maxKeyLength: 1,
                   onChanged1: (data) {
                     autokeyInput = data;
                   },
@@ -234,6 +239,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   validator1: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a value.';
+                    } else if (!validateLowerCase(value)) {
+                      return 'Only lowercase letters';
                     }
                     return null;
                   },
@@ -244,6 +251,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   validator2: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a value.';
+                    } else if (!validateSingleLowerCaseLetter(value)) {
+                      return 'Only one lowercase letter';
                     }
                     return null;
                   },
@@ -299,21 +308,30 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   validator1: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a value.';
+                    } else if (!validateLowerCase(value)) {
+                      return 'Only lowercase letters';
                     }
                     return null;
                   },
                   onChanged2: (data) {
-                    affineKey1 = int.parse(data);
+                    if (data.isNotEmpty) {
+                      affineKey1 = int.parse(data);
+                    }
                   },
                   controller2: _affineKey1Controller,
                   validator2: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a value.';
+                    } else if (!validateRelativelyPrimeWith26(
+                        int.parse(value))) {
+                      return 'gcd($value, 26) != 1';
                     }
                     return null;
                   },
                   onChanged3: (data) {
-                    affineKey2 = int.parse(data);
+                    if (data.isNotEmpty) {
+                      affineKey2 = int.parse(data);
+                    }
                   },
                   controller3: _affineKey2Controller,
                   validator3: (value) {

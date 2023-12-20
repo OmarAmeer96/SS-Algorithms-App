@@ -17,8 +17,6 @@ class CaesarItem extends StatelessWidget {
     this.onChanged2,
     this.controller2,
     this.validator2,
-    required this.maxInputLength,
-    required this.maxKeyLength,
     this.inputType = TextInputType.text,
   });
 
@@ -34,9 +32,6 @@ class CaesarItem extends StatelessWidget {
   final Function(dynamic)? onChanged2;
   final TextEditingController? controller2;
   final String? Function(String?)? validator2;
-
-  final int maxInputLength;
-  final int maxKeyLength;
 
   final TextInputType inputType;
 
@@ -65,7 +60,6 @@ class CaesarItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomMainTextField(
-                    maxLength: maxInputLength,
                     onChanged: onChanged1,
                     controller: controller1,
                     validator: validator1,
@@ -82,7 +76,6 @@ class CaesarItem extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomKeyTextField(
-                    maxLength: maxKeyLength,
                     onChanged: onChanged2,
                     controller: controller2,
                     validator: validator2,

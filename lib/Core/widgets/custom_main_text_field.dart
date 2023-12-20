@@ -17,7 +17,6 @@ class CustomMainTextField extends StatelessWidget {
     this.suffixIcon,
     required this.obscureText,
     this.labelText,
-    required this.maxLength,
   });
 
   final Function(String)? onChanged;
@@ -33,12 +32,10 @@ class CustomMainTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool obscureText;
   final String? labelText;
-  final int maxLength;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      maxLength: maxLength,
       controller: controller,
       onChanged: onChanged,
       obscureText: obscureText,
