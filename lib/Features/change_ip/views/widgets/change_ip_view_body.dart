@@ -71,6 +71,7 @@ class _ChangeIpViewBodyState extends State<ChangeIpViewBody> {
                   height: 10,
                 ),
                 CustomMainButton(
+                  isLoading: false,
                   text: "Submit",
                   onPressed: () {
                     if (_ipForm.currentState!.validate()) {

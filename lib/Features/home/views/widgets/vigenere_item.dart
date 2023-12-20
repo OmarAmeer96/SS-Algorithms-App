@@ -17,6 +17,7 @@ class VigenereItem extends StatelessWidget {
     this.controller2,
     this.validator2,
     this.inputType = TextInputType.text,
+    required this.isLoading,
   });
 
   final void Function()? onPressed1;
@@ -33,6 +34,8 @@ class VigenereItem extends StatelessWidget {
   final String? Function(String?)? validator2;
 
   final TextInputType inputType;
+
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +98,7 @@ class VigenereItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomMainButton(
+                    isLoading: isLoading,
                     text: "Encryption",
                     onPressed: onPressed1,
                     color: kButtonColor1,
@@ -105,6 +109,7 @@ class VigenereItem extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomMainButton(
+                    isLoading: isLoading,
                     text: "Decryption",
                     onPressed: onPressed2,
                     color: kButtonColor2,

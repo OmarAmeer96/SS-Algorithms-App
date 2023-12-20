@@ -16,7 +16,7 @@ class AutoKeyItem extends StatelessWidget {
     this.onChanged2,
     this.controller2,
     this.validator2,
-    this.inputType = TextInputType.text,
+    this.inputType = TextInputType.text, required this.isLoading,
   });
 
   final void Function()? onPressed1;
@@ -33,6 +33,8 @@ class AutoKeyItem extends StatelessWidget {
   final String? Function(String?)? validator2;
 
   final TextInputType inputType;
+
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +97,7 @@ class AutoKeyItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomMainButton(
+                    isLoading: isLoading,
                     text: "Encryption",
                     onPressed: onPressed1,
                     color: kButtonColor1,
@@ -105,6 +108,7 @@ class AutoKeyItem extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomMainButton(
+                    isLoading: isLoading,
                     text: "Decryption",
                     onPressed: onPressed2,
                     color: kButtonColor2,

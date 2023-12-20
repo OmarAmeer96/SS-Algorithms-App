@@ -19,6 +19,7 @@ class AffineAlgoItem extends StatelessWidget {
     this.onChanged3,
     this.controller3,
     this.validator3,
+    required this.isLoading,
   });
 
   final void Function()? onPressed1;
@@ -37,6 +38,8 @@ class AffineAlgoItem extends StatelessWidget {
   final Function(String)? onChanged3;
   final TextEditingController? controller3;
   final String? Function(String?)? validator3;
+
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +118,7 @@ class AffineAlgoItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomMainButton(
+                    isLoading: isLoading,
                     text: "Encryption",
                     onPressed: onPressed1,
                     color: kButtonColor1,
@@ -125,6 +129,7 @@ class AffineAlgoItem extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomMainButton(
+                    isLoading: isLoading,
                     text: "Decryption",
                     onPressed: onPressed2,
                     color: kButtonColor2,

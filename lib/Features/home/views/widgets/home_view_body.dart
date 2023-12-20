@@ -51,6 +51,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   final _autokeyForm = GlobalKey<FormState>();
   final _affineForm = GlobalKey<FormState>();
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     final dio = Dio();
@@ -117,9 +118,14 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   text: "Caesar Cipher",
                   onPressed1: () async {
                     if (_caesarForm.currentState!.validate()) {
+                      setState(() {
+                        isLoading = true;
+                      });
                       try {
-                        var data = await apiService
-                            .encryptCaesar({"pt": caesarInput, "k": caesarKey});
+                        var data = await apiService.encryptCaesar({
+                          "pt": caesarInput,
+                          "k": caesarKey,
+                        });
                         var decodedData = jsonDecode(data);
                         // ignore: use_build_context_synchronously
                         showSuccessDialog(
@@ -130,15 +136,26 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       } catch (e) {
                         // ignore: use_build_context_synchronously
                         showErrorDialog(
-                            context, '$e ${caesarKey!.runtimeType}');
+                          context,
+                          '$e ${caesarKey!.runtimeType}',
+                        );
+                      } finally {
+                        setState(() {
+                          isLoading = false;
+                        });
                       }
                     }
                   },
                   onPressed2: () async {
                     if (_caesarForm.currentState!.validate()) {
+                      setState(() {
+                        isLoading = true;
+                      });
                       try {
-                        var data = await apiService
-                            .decryptCaesar({"ct": caesarInput, "k": caesarKey});
+                        var data = await apiService.decryptCaesar({
+                          "ct": caesarInput,
+                          "k": caesarKey,
+                        });
                         var decodedData = jsonDecode(data);
                         // ignore: use_build_context_synchronously
                         showSuccessDialog(
@@ -149,10 +166,17 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       } catch (e) {
                         // ignore: use_build_context_synchronously
                         showErrorDialog(
-                            context, '$e ${caesarKey!.runtimeType}');
+                          context,
+                          '$e ${caesarKey!.runtimeType}',
+                        );
+                      } finally {
+                        setState(() {
+                          isLoading = false;
+                        });
                       }
                     }
                   },
+                  isLoading: isLoading,
                 ),
               ),
               const SizedBox(
@@ -190,6 +214,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   text: "Vigenere Cipher",
                   onPressed1: () async {
                     if (_vigenereForm.currentState!.validate()) {
+                      setState(() {
+                        isLoading = true;
+                      });
                       try {
                         var data = await apiService.encryptVigenere(
                             {"pt": vigenereInput, "k": vigenereKey});
@@ -203,11 +230,18 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       } catch (e) {
                         // ignore: use_build_context_synchronously
                         showErrorDialog(context, e.toString());
+                      } finally {
+                        setState(() {
+                          isLoading = false;
+                        });
                       }
                     }
                   },
                   onPressed2: () async {
                     if (_vigenereForm.currentState!.validate()) {
+                      setState(() {
+                        isLoading = true;
+                      });
                       try {
                         var data = await apiService.decryptVigenere(
                             {"ct": vigenereInput, "k": vigenereKey});
@@ -221,9 +255,14 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       } catch (e) {
                         // ignore: use_build_context_synchronously
                         showErrorDialog(context, e.toString());
+                      } finally {
+                        setState(() {
+                          isLoading = false;
+                        });
                       }
                     }
                   },
+                  isLoading: isLoading,
                 ),
               ),
               const SizedBox(
@@ -259,6 +298,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   text: "Autokey Cipher",
                   onPressed1: () async {
                     if (_autokeyForm.currentState!.validate()) {
+                      setState(() {
+                        isLoading = true;
+                      });
                       try {
                         var data = await apiService.encryptAutokey(
                             {"pt": autokeyInput, "k": autokeyKey});
@@ -272,11 +314,18 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       } catch (e) {
                         // ignore: use_build_context_synchronously
                         showErrorDialog(context, e.toString());
+                      } finally {
+                        setState(() {
+                          isLoading = false;
+                        });
                       }
                     }
                   },
                   onPressed2: () async {
                     if (_autokeyForm.currentState!.validate()) {
+                      setState(() {
+                        isLoading = true;
+                      });
                       try {
                         var data = await apiService.decryptAutokey(
                             {"ct": autokeyInput, "k": autokeyKey});
@@ -290,9 +339,14 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       } catch (e) {
                         // ignore: use_build_context_synchronously
                         showErrorDialog(context, e.toString());
+                      } finally {
+                        setState(() {
+                          isLoading = false;
+                        });
                       }
                     }
                   },
+                  isLoading: isLoading,
                 ),
               ),
               const SizedBox(
@@ -343,6 +397,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   text: "Affine Cipher",
                   onPressed1: () async {
                     if (_affineForm.currentState!.validate()) {
+                      setState(() {
+                        isLoading = true;
+                      });
                       try {
                         var data = await apiService.encryptAffine({
                           "pt": affineInput,
@@ -359,11 +416,18 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       } catch (e) {
                         // ignore: use_build_context_synchronously
                         showErrorDialog(context, e.toString());
+                      } finally {
+                        setState(() {
+                          isLoading = false;
+                        });
                       }
                     }
                   },
                   onPressed2: () async {
                     if (_affineForm.currentState!.validate()) {
+                      setState(() {
+                        isLoading = true;
+                      });
                       try {
                         var data = await apiService.decryptAffine({
                           "ct": affineInput,
@@ -380,9 +444,14 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       } catch (e) {
                         // ignore: use_build_context_synchronously
                         showErrorDialog(context, e.toString());
+                      } finally {
+                        setState(() {
+                          isLoading = false;
+                        });
                       }
                     }
                   },
+                  isLoading: isLoading,
                 ),
               ),
               const SizedBox(
