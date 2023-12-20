@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ss_algorithms_app/Core/utils/styles.dart';
 import 'package:ss_algorithms_app/Features/info/views/widgets/team_members_column.dart';
 
@@ -27,6 +28,16 @@ class InfoViewBody extends StatelessWidget {
               height: 40,
             ),
             const TeamMemberColumn(),
+            const SizedBox(
+              height: 40,
+            ),
+            Text(
+              'Made With 🧡',
+              style: GoogleFonts.cairoPlay(
+                fontWeight: FontWeight.w900,
+                fontSize: 22,
+              ),
+            ),
           ],
         ),
       ),

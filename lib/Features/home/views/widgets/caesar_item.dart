@@ -5,8 +5,8 @@ import 'package:ss_algorithms_app/Core/widgets/custom_main_button.dart';
 import 'package:ss_algorithms_app/Core/widgets/custom_main_text_field.dart';
 import 'package:ss_algorithms_app/constants.dart';
 
-class AlgorithmItem extends StatelessWidget {
-  const AlgorithmItem({
+class CaesarItem extends StatelessWidget {
+  const CaesarItem({
     super.key,
     required this.onPressed1,
     required this.onPressed2,

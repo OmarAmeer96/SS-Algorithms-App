@@ -7,7 +7,9 @@ import 'package:ss_algorithms_app/Core/utils/app_state.dart';
 import 'package:ss_algorithms_app/Core/utils/show_error_dialog.dart';
 import 'package:ss_algorithms_app/Core/utils/show_success_dialog.dart';
 import 'package:ss_algorithms_app/Features/home/views/widgets/affine_algo_item.dart';
-import 'package:ss_algorithms_app/Features/home/views/widgets/algorithm_item.dart';
+import 'package:ss_algorithms_app/Features/home/views/widgets/autokey_item.dart';
+import 'package:ss_algorithms_app/Features/home/views/widgets/caesar_item.dart';
+import 'package:ss_algorithms_app/Features/home/views/widgets/vigenere_item.dart';
 
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
@@ -21,10 +23,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   int? caesarKey;
 
   String? vigenereInput;
-  int? vigenereKey;
+  String? vigenereKey;
 
   String? autokeyInput;
-  int? autokeyKey;
+  String? autokeyKey;
 
   String? affineInput;
   int? affineKey1;
@@ -86,7 +88,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               ),
               Form(
                 key: _caesarForm,
-                child: AlgorithmItem(
+                child: CaesarItem(
                   maxInputLength: 100,
                   maxKeyLength: 100,
                   onChanged1: (data) {
@@ -155,7 +157,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               ),
               Form(
                 key: _vigenereForm,
-                child: AlgorithmItem(
+                child: VigenereItem(
                   maxInputLength: 100,
                   maxKeyLength: 100,
                   onChanged1: (data) {
@@ -169,7 +171,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     return null;
                   },
                   onChanged2: (data) {
-                    vigenereKey = int.parse(data);
+                    vigenereKey = data;
                   },
                   controller2: _vigenereKeyController,
                   validator2: (value) {
@@ -201,7 +203,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     if (_vigenereForm.currentState!.validate()) {
                       try {
                         var data = await apiService.decryptVigenere(
-                            {"pt": vigenereInput, "k": vigenereInput});
+                            {"ct": vigenereInput, "k": vigenereKey});
                         var decodedData = jsonDecode(data);
                         // ignore: use_build_context_synchronously
                         showSuccessDialog(
@@ -222,7 +224,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               ),
               Form(
                 key: _autokeyForm,
-                child: AlgorithmItem(
+                child: AutoKeyItem(
                   maxInputLength: 100,
                   maxKeyLength: 1,
                   onChanged1: (data) {
@@ -236,7 +238,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     return null;
                   },
                   onChanged2: (data) {
-                    autokeyKey = int.parse(data);
+                    autokeyKey = data;
                   },
                   controller2: _autokeyKeyController,
                   validator2: (value) {
@@ -268,7 +270,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     if (_autokeyForm.currentState!.validate()) {
                       try {
                         var data = await apiService.decryptAutokey(
-                            {"pt": autokeyInput, "k": autokeyKey});
+                            {"ct": autokeyInput, "k": autokeyKey});
                         var decodedData = jsonDecode(data);
                         // ignore: use_build_context_synchronously
                         showSuccessDialog(
@@ -346,7 +348,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     if (_affineForm.currentState!.validate()) {
                       try {
                         var data = await apiService.decryptAffine({
-                          "pt": affineInput,
+                          "ct": affineInput,
                           "k1": affineKey1,
                           "k2": affineKey2,
                         });
