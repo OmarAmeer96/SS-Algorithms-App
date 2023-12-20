@@ -36,6 +36,7 @@ class _TeamMembersItemState extends State<TeamMembersItem> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius: BorderRadius.circular(16),
       onTap: () {
         _confettiController.play();
       },
