@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ss_algorithms_app/Core/utils/styles.dart';
 import 'package:ss_algorithms_app/constants.dart';
 
-class CustomMainTextField extends StatelessWidget {
-  const CustomMainTextField({
+class CustomKeyTextField extends StatelessWidget {
+  const CustomKeyTextField({
     super.key,
     this.onChanged,
     this.controller,
@@ -12,7 +12,6 @@ class CustomMainTextField extends StatelessWidget {
     required this.borderColor,
     required this.focusedBorderColor,
     required this.enabledBorderColor,
-    required this.inputType,
     this.prefixIcon,
     this.suffixIcon,
     required this.obscureText,
@@ -20,7 +19,7 @@ class CustomMainTextField extends StatelessWidget {
     required this.maxLength,
   });
 
-  final Function(String)? onChanged;
+  final Function(dynamic)? onChanged;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
 
@@ -28,7 +27,6 @@ class CustomMainTextField extends StatelessWidget {
   final Color borderColor;
   final Color focusedBorderColor;
   final Color enabledBorderColor;
-  final TextInputType inputType;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool obscureText;
@@ -43,7 +41,7 @@ class CustomMainTextField extends StatelessWidget {
       onChanged: onChanged,
       obscureText: obscureText,
       enabled: true,
-      keyboardType: inputType,
+      keyboardType: TextInputType.number,
       style: Styles.sFProDisplayBold.copyWith(
         color: Colors.white,
         fontSize: 16,

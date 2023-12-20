@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ss_algorithms_app/Core/utils/styles.dart';
+import 'package:ss_algorithms_app/Core/widgets/custom_key_text_field.dart';
 import 'package:ss_algorithms_app/Core/widgets/custom_main_button.dart';
 import 'package:ss_algorithms_app/Core/widgets/custom_main_text_field.dart';
 import 'package:ss_algorithms_app/constants.dart';
@@ -18,6 +19,7 @@ class AlgorithmItem extends StatelessWidget {
     this.validator2,
     required this.maxInputLength,
     required this.maxKeyLength,
+    this.inputType = TextInputType.text,
   });
 
   final void Function()? onPressed1;
@@ -29,12 +31,14 @@ class AlgorithmItem extends StatelessWidget {
   final TextEditingController? controller1;
   final String? Function(String?)? validator1;
 
-  final Function(String)? onChanged2;
+  final Function(dynamic)? onChanged2;
   final TextEditingController? controller2;
   final String? Function(String?)? validator2;
 
   final int maxInputLength;
   final int maxKeyLength;
+
+  final TextInputType inputType;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +73,7 @@ class AlgorithmItem extends StatelessWidget {
                     borderColor: Colors.white,
                     focusedBorderColor: kButtonColor2,
                     enabledBorderColor: Colors.white,
-                    inputType: TextInputType.text,
+                    inputType: inputType,
                     obscureText: false,
                   ),
                 ),
@@ -77,7 +81,7 @@ class AlgorithmItem extends StatelessWidget {
                   width: 20,
                 ),
                 Expanded(
-                  child: CustomMainTextField(
+                  child: CustomKeyTextField(
                     maxLength: maxKeyLength,
                     onChanged: onChanged2,
                     controller: controller2,
@@ -86,7 +90,6 @@ class AlgorithmItem extends StatelessWidget {
                     borderColor: Colors.white,
                     focusedBorderColor: kButtonColor2,
                     enabledBorderColor: Colors.white,
-                    inputType: TextInputType.text,
                     obscureText: false,
                   ),
                 ),

@@ -19,7 +19,7 @@ class HomeViewBody extends StatefulWidget {
 
 class _HomeViewBodyState extends State<HomeViewBody> {
   String? caesarInput;
-  String? caesarKey;
+  int? caesarKey;
 
   String? vigenereInput;
   String? vigenereKey;
@@ -54,6 +54,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     final dio = Dio();
     dio.options.headers['Content-Type'] = 'application/json';
     final apiService = ApiService(dio);
+    dio.options.baseUrl = 'http://mohammedsamy.pythonanywhere.com';
 
     var appState = Provider.of<AppState>(context);
     return SingleChildScrollView(
@@ -100,7 +101,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     return null;
                   },
                   onChanged2: (data) {
-                    caesarKey = data;
+                    caesarKey = int.parse(data);
                   },
                   controller2: _caesarKeyController,
                   validator2: (value) {
@@ -114,11 +115,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     if (_caesarForm.currentState!.validate()) {
                       try {
                         var data = await apiService
-                            .encryptCaesar({'pt': caesarInput, 'k': caesarKey});
-
-                        // var data = await postData(
-                        //     '${appState.baseUrl}/caesarEncryption',
-                        //     {'pt': caesarInput!, 'k': caesarKey!});
+                            .encryptCaesar({"pt": caesarInput, "k": caesarKey});
                         var decodedData = jsonDecode(data);
                         // ignore: use_build_context_synchronously
                         showSuccessDialog(
@@ -128,7 +125,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                         );
                       } catch (e) {
                         // ignore: use_build_context_synchronously
-                        showErrorDialog(context, e.toString());
+                        showErrorDialog(
+                            context,
+                            '$e ${caesarKey!.runtimeType}');
                       }
                     }
                   },
@@ -136,11 +135,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     if (_caesarForm.currentState!.validate()) {
                       try {
                         var data = await apiService
-                            .decryptCaesar({'ct': caesarInput, 'k': caesarKey});
-
-                        // var data = await postData(
-                        //     '${appState.baseUrl}/caesarDecryption',
-                        //     {'ct': caesarInput!, 'k': caesarKey!});
+                            .decryptCaesar({"ct": caesarInput, "k": caesarKey});
                         var decodedData = jsonDecode(data);
                         // ignore: use_build_context_synchronously
                         showSuccessDialog(
@@ -150,7 +145,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                         );
                       } catch (e) {
                         // ignore: use_build_context_synchronously
-                        showErrorDialog(context, e.toString());
+                        showErrorDialog(
+                            context,
+                            '$e ${caesarKey!.runtimeType}');
                       }
                     }
                   },
