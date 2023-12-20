@@ -51,7 +51,11 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   final _autokeyForm = GlobalKey<FormState>();
   final _affineForm = GlobalKey<FormState>();
 
-  bool isLoading = false;
+  bool caesarIsLoading = false;
+  bool viginereIsLoading = false;
+  bool autokeyIsLoading = false;
+  bool affineIsLoading = false;
+
   @override
   Widget build(BuildContext context) {
     final dio = Dio();
@@ -119,7 +123,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed1: () async {
                     if (_caesarForm.currentState!.validate()) {
                       setState(() {
-                        isLoading = true;
+                        caesarIsLoading = true;
                       });
                       try {
                         var data = await apiService.encryptCaesar({
@@ -141,7 +145,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                         );
                       } finally {
                         setState(() {
-                          isLoading = false;
+                          caesarIsLoading = false;
                         });
                       }
                     }
@@ -149,7 +153,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed2: () async {
                     if (_caesarForm.currentState!.validate()) {
                       setState(() {
-                        isLoading = true;
+                        caesarIsLoading = true;
                       });
                       try {
                         var data = await apiService.decryptCaesar({
@@ -171,12 +175,12 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                         );
                       } finally {
                         setState(() {
-                          isLoading = false;
+                          caesarIsLoading = false;
                         });
                       }
                     }
                   },
-                  isLoading: isLoading,
+                  isLoading: caesarIsLoading,
                 ),
               ),
               const SizedBox(
@@ -215,7 +219,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed1: () async {
                     if (_vigenereForm.currentState!.validate()) {
                       setState(() {
-                        isLoading = true;
+                        viginereIsLoading = true;
                       });
                       try {
                         var data = await apiService.encryptVigenere(
@@ -232,7 +236,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                         showErrorDialog(context, e.toString());
                       } finally {
                         setState(() {
-                          isLoading = false;
+                          viginereIsLoading = false;
                         });
                       }
                     }
@@ -240,7 +244,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed2: () async {
                     if (_vigenereForm.currentState!.validate()) {
                       setState(() {
-                        isLoading = true;
+                        viginereIsLoading = true;
                       });
                       try {
                         var data = await apiService.decryptVigenere(
@@ -257,12 +261,12 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                         showErrorDialog(context, e.toString());
                       } finally {
                         setState(() {
-                          isLoading = false;
+                          viginereIsLoading = false;
                         });
                       }
                     }
                   },
-                  isLoading: isLoading,
+                  isLoading: viginereIsLoading,
                 ),
               ),
               const SizedBox(
@@ -299,7 +303,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed1: () async {
                     if (_autokeyForm.currentState!.validate()) {
                       setState(() {
-                        isLoading = true;
+                        autokeyIsLoading = true;
                       });
                       try {
                         var data = await apiService.encryptAutokey(
@@ -316,7 +320,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                         showErrorDialog(context, e.toString());
                       } finally {
                         setState(() {
-                          isLoading = false;
+                          autokeyIsLoading = false;
                         });
                       }
                     }
@@ -324,7 +328,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed2: () async {
                     if (_autokeyForm.currentState!.validate()) {
                       setState(() {
-                        isLoading = true;
+                        autokeyIsLoading = true;
                       });
                       try {
                         var data = await apiService.decryptAutokey(
@@ -341,12 +345,12 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                         showErrorDialog(context, e.toString());
                       } finally {
                         setState(() {
-                          isLoading = false;
+                          autokeyIsLoading = false;
                         });
                       }
                     }
                   },
-                  isLoading: isLoading,
+                  isLoading: autokeyIsLoading,
                 ),
               ),
               const SizedBox(
@@ -398,7 +402,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed1: () async {
                     if (_affineForm.currentState!.validate()) {
                       setState(() {
-                        isLoading = true;
+                        affineIsLoading = true;
                       });
                       try {
                         var data = await apiService.encryptAffine({
@@ -418,7 +422,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                         showErrorDialog(context, e.toString());
                       } finally {
                         setState(() {
-                          isLoading = false;
+                          affineIsLoading = false;
                         });
                       }
                     }
@@ -426,7 +430,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed2: () async {
                     if (_affineForm.currentState!.validate()) {
                       setState(() {
-                        isLoading = true;
+                        affineIsLoading = true;
                       });
                       try {
                         var data = await apiService.decryptAffine({
@@ -446,12 +450,12 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                         showErrorDialog(context, e.toString());
                       } finally {
                         setState(() {
-                          isLoading = false;
+                          affineIsLoading = false;
                         });
                       }
                     }
                   },
-                  isLoading: isLoading,
+                  isLoading: affineIsLoading,
                 ),
               ),
               const SizedBox(
