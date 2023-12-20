@@ -64,6 +64,9 @@ class _TeamMembersItemState extends State<TeamMembersItem> {
           Align(
             alignment: Alignment.center,
             child: ConfettiWidget(
+              colors: const [
+                kButtonColor2,
+              ],
               gravity: 0,
               maxBlastForce: 30,
               confettiController: _confettiController,
