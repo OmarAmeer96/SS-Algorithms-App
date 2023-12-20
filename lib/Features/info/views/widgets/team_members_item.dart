@@ -65,6 +65,7 @@ class _TeamMembersItemState extends State<TeamMembersItem> {
             alignment: Alignment.center,
             child: ConfettiWidget(
               gravity: 0,
+              maxBlastForce: 30,
               confettiController: _confettiController,
             ),
           ),
