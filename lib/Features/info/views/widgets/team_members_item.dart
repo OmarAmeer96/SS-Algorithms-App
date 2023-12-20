@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:ss_algorithms_app/Core/utils/styles.dart';
 import 'package:ss_algorithms_app/constants.dart';
@@ -67,8 +69,10 @@ class _TeamMembersItemState extends State<TeamMembersItem> {
               colors: const [
                 kButtonColor2,
               ],
+              blastDirection: pi / 2,
               gravity: 0,
-              maxBlastForce: 30,
+              blastDirectionality: BlastDirectionality.explosive,
+              maxBlastForce: 20,
               confettiController: _confettiController,
             ),
           ),
