@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_algorithms_app/Core/utils/api_service.dart';
 import 'package:ss_algorithms_app/Core/utils/app_state.dart';
-import 'package:ss_algorithms_app/Core/utils/request.dart';
 import 'package:ss_algorithms_app/Core/utils/show_error_dialog.dart';
 import 'package:ss_algorithms_app/Core/utils/show_success_dialog.dart';
 import 'package:ss_algorithms_app/Features/home/views/widgets/affine_algo_item.dart';
@@ -22,14 +21,14 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   int? caesarKey;
 
   String? vigenereInput;
-  String? vigenereKey;
+  int? vigenereKey;
 
   String? autokeyInput;
-  String? autokeyKey;
+  int? autokeyKey;
 
   String? affineInput;
-  String? affineKey1;
-  String? affineKey2;
+  int? affineKey1;
+  int? affineKey2;
 
   final _caesarInputController = TextEditingController();
   final _caesarKeyController = TextEditingController();
@@ -126,8 +125,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       } catch (e) {
                         // ignore: use_build_context_synchronously
                         showErrorDialog(
-                            context,
-                            '$e ${caesarKey!.runtimeType}');
+                            context, '$e ${caesarKey!.runtimeType}');
                       }
                     }
                   },
@@ -146,8 +144,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       } catch (e) {
                         // ignore: use_build_context_synchronously
                         showErrorDialog(
-                            context,
-                            '$e ${caesarKey!.runtimeType}');
+                            context, '$e ${caesarKey!.runtimeType}');
                       }
                     }
                   },
@@ -172,7 +169,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     return null;
                   },
                   onChanged2: (data) {
-                    vigenereKey = data;
+                    vigenereKey = int.parse(data);
                   },
                   controller2: _vigenereKeyController,
                   validator2: (value) {
@@ -185,9 +182,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed1: () async {
                     if (_vigenereForm.currentState!.validate()) {
                       try {
-                        var data = await postData(
-                            '${appState.baseUrl}/vigenereEncryption',
-                            {'pt': vigenereInput!, 'k': vigenereKey!});
+                        var data = await apiService.encryptVigenere(
+                            {"pt": vigenereInput, "k": vigenereKey});
                         var decodedData = jsonDecode(data);
                         // ignore: use_build_context_synchronously
                         showSuccessDialog(
@@ -204,9 +200,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed2: () async {
                     if (_vigenereForm.currentState!.validate()) {
                       try {
-                        var data = await postData(
-                            '${appState.baseUrl}/vigenereDecryption',
-                            {'ct': vigenereInput!, 'k': vigenereKey!});
+                        var data = await apiService.decryptVigenere(
+                            {"pt": vigenereInput, "k": vigenereInput});
                         var decodedData = jsonDecode(data);
                         // ignore: use_build_context_synchronously
                         showSuccessDialog(
@@ -241,7 +236,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     return null;
                   },
                   onChanged2: (data) {
-                    autokeyKey = data;
+                    autokeyKey = int.parse(data);
                   },
                   controller2: _autokeyKeyController,
                   validator2: (value) {
@@ -254,9 +249,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed1: () async {
                     if (_autokeyForm.currentState!.validate()) {
                       try {
-                        var data = await postData(
-                            '${appState.baseUrl}/autokeyEncryption',
-                            {'pt': autokeyInput!, 'k': autokeyKey!});
+                        var data = await apiService.encryptAutokey(
+                            {"pt": autokeyInput, "k": autokeyKey});
                         var decodedData = jsonDecode(data);
                         // ignore: use_build_context_synchronously
                         showSuccessDialog(
@@ -273,9 +267,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed2: () async {
                     if (_autokeyForm.currentState!.validate()) {
                       try {
-                        var data = await postData(
-                            '${appState.baseUrl}/autokeyDecryption',
-                            {'ct': autokeyInput!, 'k': autokeyKey!});
+                        var data = await apiService.decryptAutokey(
+                            {"pt": autokeyInput, "k": autokeyKey});
                         var decodedData = jsonDecode(data);
                         // ignore: use_build_context_synchronously
                         showSuccessDialog(
@@ -308,7 +301,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     return null;
                   },
                   onChanged2: (data) {
-                    affineKey1 = data;
+                    affineKey1 = int.parse(data);
                   },
                   controller2: _affineKey1Controller,
                   validator2: (value) {
@@ -318,7 +311,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     return null;
                   },
                   onChanged3: (data) {
-                    affineKey2 = data;
+                    affineKey2 = int.parse(data);
                   },
                   controller3: _affineKey2Controller,
                   validator3: (value) {
@@ -331,11 +324,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed1: () async {
                     if (_affineForm.currentState!.validate()) {
                       try {
-                        var data = await postData(
-                            '${appState.baseUrl}/affineEncryption', {
-                          'pt': affineInput!,
-                          'k1': affineKey1!,
-                          'k2': affineKey2!
+                        var data = await apiService.encryptAffine({
+                          "pt": affineInput,
+                          "k1": affineKey1,
+                          "k2": affineKey2,
                         });
                         var decodedData = jsonDecode(data);
                         // ignore: use_build_context_synchronously
@@ -353,11 +345,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   onPressed2: () async {
                     if (_affineForm.currentState!.validate()) {
                       try {
-                        var data = await postData(
-                            '${appState.baseUrl}/affineDecryption', {
-                          'ct': affineInput!,
-                          'k1': affineKey1!,
-                          'k2': affineKey2!
+                        var data = await apiService.decryptAffine({
+                          "pt": affineInput,
+                          "k1": affineKey1,
+                          "k2": affineKey2,
                         });
                         var decodedData = jsonDecode(data);
                         // ignore: use_build_context_synchronously

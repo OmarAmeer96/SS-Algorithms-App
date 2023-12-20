@@ -44,6 +44,7 @@ dependencies:
   retrofit: ^4.0.3
   dio: ^5.4.0
   json_annotation: ^4.8.1
+  another_flushbar: ^1.12.30
 
 dev_dependencies:
   flutter_test:
