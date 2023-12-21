@@ -77,9 +77,13 @@ class AffineAlgoItem extends StatelessWidget {
                     obscureText: false,
                   ),
                 ),
-                const SizedBox(
-                  width: 40,
-                ),
+              ],
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Row(
+              children: [
                 Expanded(
                   child: CustomMainTextField(
                     onChanged: onChanged2,
@@ -136,6 +140,9 @@ class AffineAlgoItem extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 10,
             ),
           ],
         ),

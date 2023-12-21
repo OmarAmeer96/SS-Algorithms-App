@@ -1,6 +1,6 @@
 bool validateLowerCase(String input) {
-  // This regular expression matches any string that contains only lowercase letters
-  String pattern = r'^[a-z]+$';
+  // This regular expression matches any string that contains only lowercase letters and spaces
+  String pattern = r'^[a-zA-Z\s]+$';
   RegExp regExp = RegExp(pattern);
   return regExp.hasMatch(input);
 }

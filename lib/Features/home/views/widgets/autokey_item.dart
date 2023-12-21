@@ -16,7 +16,8 @@ class AutoKeyItem extends StatelessWidget {
     this.onChanged2,
     this.controller2,
     this.validator2,
-    this.inputType = TextInputType.text, required this.isLoading,
+    this.inputType = TextInputType.text,
+    required this.isLoading,
   });
 
   final void Function()? onPressed1;
@@ -115,6 +116,9 @@ class AutoKeyItem extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 10,
             ),
           ],
         ),

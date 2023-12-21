@@ -117,6 +117,9 @@ class VigenereItem extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(
+              height: 10,
+            ),
           ],
         ),
       ),
