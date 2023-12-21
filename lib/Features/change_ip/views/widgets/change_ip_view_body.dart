@@ -40,7 +40,7 @@ class _ChangeIpViewBodyState extends State<ChangeIpViewBody> {
                   height: 10,
                 ),
                 Align(
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment.topCenter,
                   child: Text(
                     'Change IP',
                     style: Styles.sFProDisplayBold.copyWith(),

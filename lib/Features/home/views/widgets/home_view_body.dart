@@ -83,7 +83,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 height: 10,
               ),
               Align(
-                alignment: Alignment.topLeft,
+                alignment: Alignment.topCenter,
                 child: Text(
                   'Algorithms',
                   style: Styles.sFProDisplayBold.copyWith(),
@@ -208,10 +208,13 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   validator2: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a value.';
-                    } else if (!validateKeyLength(vigenereInput!, value)) {
-                      return 'Key must be <= input';
+                    } else if (!validateKeyLengthWithLastWord(
+                        vigenereInput!, value)) {
+                      return 'Invalid Key!';
                     } else if (!validateLowerCase(value)) {
                       return 'Only lowercase letters allowed';
+                    } else if (!validateNoSpaces(value)) {
+                      return 'No spaces allowed in the key';
                     }
                     return null;
                   },
