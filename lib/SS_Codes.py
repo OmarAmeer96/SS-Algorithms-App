@@ -38,7 +38,6 @@ def ceaser_decipher(ct: str, k: int):
         for ch in w:
             pt += index_to_letter[(letter_to_index[ch] - k) % 26]
         pt += ' '
-
     return pt.rstrip()
 
 
